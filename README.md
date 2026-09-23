@@ -25,12 +25,12 @@ CN File Organizer helps you sort, organize, and clean up your files safely — t
 ### Option 1 — One-line installer (recommended)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/your-org/cn-file-organizer/main/packaging/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Marjuk06/CN-File-Organizer/main/packaging/install.sh | bash
 ```
 
 ### Option 2 — Download a package
 
-Visit the [Releases page](https://github.com/your-org/cn-file-organizer/releases) and download:
+Visit the [Releases page](https://github.com/Marjuk06/CN-File-Organizer/releases) and download:
 
 | Format | For |
 |---|---|
@@ -84,7 +84,7 @@ organize --help
 **Requirements:** Rust 1.70+, Node.js 18+, webkit2gtk-4.1
 
 ```bash
-git clone https://github.com/your-org/cn-file-organizer
+git clone https://github.com/Marjuk06/CN-File-Organizer
 cd cn-file-organizer
 
 # Build and run the desktop app

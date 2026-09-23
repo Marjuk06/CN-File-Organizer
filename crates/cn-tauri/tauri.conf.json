@@ -53,7 +53,7 @@
     "updater": {
       "active": true,
       "endpoints": [
-        "https://raw.githubusercontent.com/your-org/cn-file-organizer/main/releases/update.json"
+        "https://raw.githubusercontent.com/Marjuk06/CN-File-Organizer/main/releases/update.json"
       ],
       "dialog": false,
       "pubkey": ""
