@@ -1,0 +1,35 @@
+# Rust
+target/
+Cargo.lock
+
+# Node / npm
+node_modules/
+ui/dist/
+ui/.vite/
+
+# Tauri
+crates/cn-tauri/gen/
+
+# Logs
+*.log
+logs/
+
+# Test fixtures (large generated ones)
+tests/fixtures/large/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Diagnostics exports
+diagnostics/
+
+# Env
+.env
+.env.local

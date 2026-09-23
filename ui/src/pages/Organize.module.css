@@ -1,0 +1,208 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.header {
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: hsl(var(--color-text-secondary));
+  font-size: 1.125rem;
+}
+
+.scanSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1.5rem !important;
+}
+
+.pathSelector {
+  display: flex;
+  gap: 1rem;
+}
+
+.pathInput {
+  flex: 1;
+  background-color: hsla(224, 71%, 4%, 0.3);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  color: hsl(var(--color-text-primary));
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: border-color 0.2s;
+}
+
+.pathInput:hover {
+  border-color: hsla(215, 20%, 65%, 0.4);
+}
+
+.modeSelector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.modeLabel {
+  font-weight: 500;
+  color: hsl(var(--color-text-secondary));
+}
+
+.select {
+  background-color: hsla(224, 71%, 4%, 0.5);
+  border: 1px solid var(--border-color);
+  color: hsl(var(--color-text-primary));
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  outline: none;
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.scanButton {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem !important;
+  gap: 1.5rem;
+  color: hsl(var(--color-text-secondary));
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid hsla(var(--color-primary), 0.2);
+  border-top-color: hsl(var(--color-primary));
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.warningAlert {
+  background-color: hsla(var(--color-warning), 0.1);
+  border: 1px solid hsla(var(--color-warning), 0.3);
+  color: hsl(var(--color-warning));
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9375rem;
+}
+
+.planSummary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background-color: hsla(224, 71%, 4%, 0.3);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.planStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.statKey {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(var(--color-text-secondary));
+}
+
+.statVal {
+  font-weight: 600;
+  font-size: 1.125rem;
+  word-break: break-all;
+}
+
+.executeButton {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.executingState {
+  padding: 4rem 2rem !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.executingTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.progressBar {
+  width: 100%;
+  max-width: 500px;
+}
+
+.progressText {
+  font-family: var(--font-mono);
+  color: hsl(var(--color-text-secondary));
+  font-size: 0.875rem;
+}
+
+.successState {
+  padding: 5rem 2rem !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+}
+
+.successIcon {
+  color: hsl(var(--color-success));
+  margin-bottom: 0.5rem;
+}
+
+.successTitle {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.successDesc {
+  color: hsl(var(--color-text-secondary));
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+}

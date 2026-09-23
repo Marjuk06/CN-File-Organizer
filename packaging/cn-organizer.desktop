@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=CN File Organizer
+Comment=Smart and fast local file organizer
+Exec=cn-organizer
+Icon=cn-organizer
+Terminal=false
+Type=Application
+Categories=Utility;System;FileTools;
+Keywords=file;organizer;manager;sort;
+StartupNotify=true

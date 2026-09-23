@@ -1,0 +1,129 @@
+.appContainer {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: hsl(var(--color-bg-base));
+  color: hsl(var(--color-text-primary));
+}
+
+.sidebar {
+  width: 250px;
+  background-color: hsl(var(--color-bg-surface));
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1rem;
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  padding: 0 0.5rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, hsl(var(--color-primary)), hsl(var(--color-accent)));
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: -0.5px;
+}
+
+.brandName {
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: -0.5px;
+  background: linear-gradient(to right, hsl(var(--color-text-primary)), hsl(var(--color-text-muted)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-md);
+  color: hsl(var(--color-text-secondary));
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.navItem:hover {
+  color: hsl(var(--color-text-primary));
+  background-color: hsla(210, 40%, 98%, 0.04);
+}
+
+.navItem.active {
+  color: hsl(var(--color-primary));
+  background-color: hsla(var(--color-primary), 0.1);
+  font-weight: 600;
+}
+
+.navItem.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 1.25rem;
+  width: 3px;
+  background-color: hsl(var(--color-primary));
+  border-radius: 0 4px 4px 0;
+}
+
+.navFooter {
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Background ambient glow effect */
+.mainContent::before {
+  content: '';
+  position: fixed;
+  top: -20vh;
+  right: -20vw;
+  width: 60vw;
+  height: 60vh;
+  background: radial-gradient(circle, hsla(var(--color-primary), 0.1) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contentWrapper {
+  flex: 1;
+  padding: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}

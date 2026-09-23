@@ -1,0 +1,73 @@
+name: Bug Report
+description: Report a problem with CN File Organizer
+labels: ["type:bug", "status:needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please fill in as much detail as possible.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the problem.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How do we reproduce the problem?
+      placeholder: |
+        1. Open CN File Organizer
+        2. Drop the folder '...'
+        3. Click Organize
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: CN File Organizer version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "Zorin OS 17, Ubuntu 24.04, etc."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: interface
+    attributes:
+      label: Interface used
+      options:
+        - Desktop GUI
+        - CLI
+        - Both
+    validations:
+      required: true
+
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostic report (optional)
+      description: |
+        Run `organize diagnostics --output ~/cn-diag.json` and paste the output here.
+        Or use Help → Collect Diagnostics in the GUI.
+      render: json

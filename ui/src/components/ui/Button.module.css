@@ -1,0 +1,78 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Variants */
+.primary {
+  background-color: hsl(var(--color-primary));
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.primary:hover {
+  background-color: hsl(var(--color-primary-hover));
+  box-shadow: var(--shadow-glow);
+}
+
+.secondary {
+  background-color: hsla(215, 20%, 65%, 0.1);
+  color: hsl(var(--color-text-primary));
+  border-color: var(--border-color);
+}
+
+.secondary:hover {
+  background-color: hsla(215, 20%, 65%, 0.15);
+}
+
+.danger {
+  background-color: hsla(var(--color-danger), 0.15);
+  color: hsl(var(--color-danger));
+}
+
+.danger:hover {
+  background-color: hsl(var(--color-danger));
+  color: white;
+}
+
+.ghost {
+  background-color: transparent;
+  color: hsl(var(--color-text-secondary));
+}
+
+.ghost:hover {
+  background-color: hsla(215, 20%, 65%, 0.1);
+  color: hsl(var(--color-text-primary));
+}
+
+/* Sizes */
+.sm {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 0.875rem;
+}
+
+.md {
+  height: 40px;
+  padding: 0 16px;
+  font-size: 0.9375rem;
+}
+
+.lg {
+  height: 48px;
+  padding: 0 24px;
+  font-size: 1rem;
+}

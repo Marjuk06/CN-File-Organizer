@@ -1,0 +1,117 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.titleArea {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon {
+  color: hsl(var(--color-primary));
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: hsl(var(--color-text-secondary));
+  font-size: 1.125rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.rulesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem !important;
+  text-align: center;
+  gap: 1rem;
+  color: hsl(var(--color-text-secondary));
+}
+
+.emptyIcon {
+  color: hsla(215, 20%, 65%, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+.addRuleBtn {
+  margin-top: 1rem;
+}
+
+.ruleCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem !important;
+}
+
+.ruleDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ruleDetails h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.rulePatterns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.patternBadge {
+  background-color: hsla(var(--color-primary), 0.15);
+  color: hsl(var(--color-primary));
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+}
+
+.ruleDest {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: hsl(var(--color-text-primary));
+  margin-top: 0.25rem;
+}
+
+.destLabel {
+  color: hsl(var(--color-text-secondary));
+  font-family: var(--font-sans);
+}
+
+.ruleActions {
+  display: flex;
+  gap: 0.5rem;
+}

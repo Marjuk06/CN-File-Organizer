@@ -1,0 +1,76 @@
+[workspace]
+members = [
+    "crates/cn-core",
+    "crates/cn-tauri",
+    "crates/cn-cli",
+]
+resolver = "2"
+
+[workspace.package]
+version = "1.0.0"
+authors = ["CN File Organizer Contributors"]
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/your-org/cn-file-organizer"
+homepage = "https://github.com/your-org/cn-file-organizer"
+description = "Smart file management for Linux"
+keywords = ["file-organizer", "files", "linux", "cli", "tauri"]
+categories = ["command-line-utilities", "filesystem"]
+
+[workspace.dependencies]
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+tokio-util = { version = "0.7", features = ["full"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+
+# Error handling
+anyhow = "1"
+thiserror = "1"
+
+# Filesystem & paths
+walkdir = "2"
+dirs = "5"
+tempfile = "3"
+
+# MIME / file type detection
+infer = "0.16"
+
+# Hashing
+sha2 = "0.10"
+
+# UUIDs
+uuid = { version = "1", features = ["v4", "serde"] }
+
+# Datetime
+chrono = { version = "0.4", features = ["serde"] }
+
+# Parallel processing
+rayon = "1"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+tracing-appender = "0.2"
+
+# CLI
+clap = { version = "4", features = ["derive", "env"] }
+
+# TUI
+ratatui = "0.29"
+crossterm = "0.28"
+
+# CLI progress (non-interactive mode)
+indicatif = "0.17"
+
+# Testing
+proptest = "1"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true

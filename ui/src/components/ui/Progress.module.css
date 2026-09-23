@@ -1,0 +1,16 @@
+.root {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background-color: var(--border-color);
+  height: 8px;
+  width: 100%;
+}
+
+.indicator {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  background: linear-gradient(90deg, hsl(var(--color-primary)), hsl(var(--color-accent)));
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
