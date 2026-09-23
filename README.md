@@ -19,26 +19,37 @@
   </p>
 </div>
 
----
+> [!WARNING]  
+> **Under Active Development:** This software is currently under construction and may receive breaking changes or experimental features. Please ensure you always preview changes and rely on the undo mechanism during beta phases.
 
-**CN File Organizer** is an industry-grade, local-first file management utility designed exclusively for Linux. Built from the ground up in Rust, it delivers blazing-fast performance capable of parsing 100,000+ files in seconds. Whether you prefer an elegant Desktop GUI or a powerful CLI, every operation is completely transparent, dry-run by default, and 100% reversible.
+### Platform Support Matrix
 
----
-
-## ⚡ Key Features
-
-- **Safe By Design** — Every action is previewed in a structured tree before execution. Nothing is moved without your explicit confirmation.
-- **Blazing Fast** — Rust-powered multi-threaded execution handles massive directories with near-zero latency.
-- **Dual Interface** — A beautifully crafted **Tauri Desktop GUI** and a robust **Command Line Interface (CLI)**.
-- **Smart Categorization** — Automatically detects and organizes files by magic bytes (MIME types) into Documents, Images, Videos, Audio, Archives, Code, and more.
-- **Advanced Duplicate Detection** — Multi-staged duplicate resolution (File Size → Structural Fingerprint → SHA-256 Hash) without moving or altering data.
-- **Total Undo Capabilities** — Instantly reverse any operation using the integrated transaction journal.
-- **Custom Rule Engine** — Write highly-specific, priority-based TOML rules to dictate exactly how files are managed.
-- **Local-First Architecture** — Zero telemetry, zero cloud processing. Your filesystem stays on your machine.
+| Platform | Status | Availability |
+| :--- | :--- | :--- |
+| **Linux** | Supported | AppImage, Debian/Ubuntu (`.deb`) |
+| **Windows** | Under Construction | Active Development |
+| **macOS** | Planned | Future Release |
 
 ---
 
-## 📥 Installation
+**CN File Organizer** is an industry-grade, local-first file management utility designed exclusively for Linux. Built from the ground up in Rust, it delivers lightning-fast performance capable of parsing 100,000+ files in seconds. Whether you prefer an elegant Desktop GUI or a powerful CLI, every operation is completely transparent, dry-run by default, and 100% reversible.
+
+---
+
+## Key Features
+
+- **Safe By Design:** Every action is previewed in a structured tree before execution. Nothing is moved without your explicit confirmation.
+- **High Performance:** Rust-powered multi-threaded execution handles massive directories with near-zero latency.
+- **Dual Interface:** A beautifully crafted Tauri Desktop GUI and a robust Command Line Interface (CLI).
+- **Smart Categorization:** Automatically detects and organizes files by magic bytes (MIME types) into Documents, Images, Videos, Audio, Archives, Code, and more.
+- **Advanced Duplicate Detection:** Multi-staged duplicate resolution (File Size -> Structural Fingerprint -> SHA-256 Hash) without moving or altering data.
+- **Total Undo Capabilities:** Instantly reverse any operation using the integrated transaction journal.
+- **Custom Rule Engine:** Write highly-specific, priority-based TOML rules to dictate exactly how files are managed.
+- **Local-First Architecture:** Zero telemetry, zero cloud processing. Your filesystem stays on your machine.
+
+---
+
+## Installation
 
 Choose the installation method that works best for your Linux distribution.
 
@@ -58,7 +69,7 @@ Head over to the [Releases](https://github.com/Marjuk06/CN-File-Organizer/releas
 
 ---
 
-## 🚀 Quick Start Guide
+## Quick Start Guide
 
 ### Using the GUI
 1. Launch **CN File Organizer** from your application launcher.
@@ -86,7 +97,7 @@ organize --help
 
 ---
 
-## 🛠️ Building From Source
+## Building From Source
 
 For developers, contributors, or those who prefer compiling from source.
 
@@ -112,18 +123,18 @@ cargo build --release -p cn-cli
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 Dive deeper into CN File Organizer's capabilities:
 
-- 📖 [CLI Reference Guide](docs/cli-reference.md)
-- ⚙️ [Writing Custom Rules (TOML)](docs/rules.md)
-- 🛡️ [Security & Privacy Policy](SECURITY.md)
-- 🏗️ [Architecture & Development](docs/development.md)
+- [CLI Reference Guide](docs/cli-reference.md)
+- [Writing Custom Rules (TOML)](docs/rules.md)
+- [Security & Privacy Policy](SECURITY.md)
+- [Architecture & Development](docs/development.md)
 
 ---
 
-## 🤝 Support & Contribution
+## Support & Contribution
 
 We welcome bug reports, feature requests, and pull requests. 
 - **Found a bug?** Open an issue on our [Issue Tracker](https://github.com/Marjuk06/CN-File-Organizer/issues).
@@ -133,6 +144,6 @@ We welcome bug reports, feature requests, and pull requests.
 ---
 
 <div align="center">
-  <p>Built with 🩵 by <a href="https://github.com/Marjuk06">Marjuk06</a> and Contributors.</p>
+  <p>Built with precision by <a href="https://github.com/Marjuk06">Marjuk06</a> and Contributors.</p>
   <p>Licensed under the <a href="LICENSE">MIT License</a>.</p>
 </div>
