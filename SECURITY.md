@@ -11,7 +11,7 @@
 
 **Please do NOT open a public GitHub issue for security vulnerabilities.**
 
-Report security issues by emailing: **security@cn-file-organizer.example.com**
+Report security issues by emailing: **marjukamin06@gmail.com**
 
 Include:
 - Description of the vulnerability
