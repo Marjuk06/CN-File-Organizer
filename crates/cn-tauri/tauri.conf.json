@@ -1,13 +1,13 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "CN File Organizer",
-  "identifier": "com.cn-file-organizer.app",
+  "identifier": "com.cn-file-organizer.desktop",
   "version": "1.0.0",
   "build": {
-    "beforeDevCommand": "npm run dev",
+    "beforeDevCommand": "npm --prefix ../../ui run dev",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "npm run build",
-    "frontendDist": "../ui/dist"
+    "beforeBuildCommand": "npm --prefix ../../ui run build",
+    "frontendDist": "../../ui/dist"
   },
   "app": {
     "withGlobalTauri": true,
