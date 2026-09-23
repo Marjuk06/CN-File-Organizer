@@ -72,7 +72,7 @@ jobs:
 
       - name: Generate checksums
         run: |
-          cd crates/cn-tauri/target/release/bundle
+          cd target/release/bundle
           sha256sum deb/*.deb appimage/*.AppImage > checksums.sha256
           cat checksums.sha256
 
@@ -81,9 +81,9 @@ jobs:
         with:
           name: linux-x86_64-packages
           path: |
-            crates/cn-tauri/target/release/bundle/deb/*.deb
-            crates/cn-tauri/target/release/bundle/appimage/*.AppImage
-            crates/cn-tauri/target/release/bundle/checksums.sha256
+            target/release/bundle/deb/*.deb
+            target/release/bundle/appimage/*.AppImage
+            target/release/bundle/checksums.sha256
 
   publish-release:
     name: Publish GitHub Release
