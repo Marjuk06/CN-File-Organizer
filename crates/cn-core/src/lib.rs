@@ -3,8 +3,8 @@
 //! This crate is completely independent of Tauri, React, and any UI framework.
 //! It is consumed by both the desktop GUI (cn-tauri) and the CLI (cn-cli).
 
-pub mod config;
 pub mod classifier;
+pub mod config;
 pub mod diagnostics;
 pub mod duplicate;
 pub mod error;

@@ -1,7 +1,6 @@
 use crate::error::{CnError, CnResult};
 use crate::models::execution::{ExecutionResult, FileOutcome};
 use std::fs;
-use std::path::Path;
 
 /// Undo a completed execution.
 ///
@@ -9,7 +8,9 @@ use std::path::Path;
 /// Returns the number of files successfully restored.
 pub fn undo_execution(result: &ExecutionResult) -> CnResult<u64> {
     if !result.is_success() {
-        return Err(CnError::NotUndoable("Only successful or partially successful operations can be undone".into()));
+        return Err(CnError::NotUndoable(
+            "Only successful or partially successful operations can be undone".into(),
+        ));
     }
 
     let mut restored = 0;
@@ -17,14 +18,16 @@ pub fn undo_execution(result: &ExecutionResult) -> CnResult<u64> {
     for file_res in &result.file_results {
         // We only need to undo files that were actually moved or renamed
         if file_res.outcome == FileOutcome::Moved || file_res.outcome == FileOutcome::Renamed {
-            
             // Safety check: Has the file been modified since we moved it?
             if let Ok(meta) = fs::metadata(&file_res.destination) {
-                let current_modified: Option<chrono::DateTime<chrono::Utc>> = meta.modified().ok().map(chrono::DateTime::from);
-                
+                let current_modified: Option<chrono::DateTime<chrono::Utc>> =
+                    meta.modified().ok().map(chrono::DateTime::from);
+
                 // If it was modified after we put it there, don't undo to prevent data loss
                 // We use a small epsilon for filesystem timestamp inaccuracies
-                if let (Some(current), Some(original)) = (current_modified, file_res.destination_modified_at) {
+                if let (Some(current), Some(original)) =
+                    (current_modified, file_res.destination_modified_at)
+                {
                     if current.timestamp_millis() - original.timestamp_millis() > 2000 {
                         // File was modified, skip undo for this file
                         continue;
@@ -34,12 +37,12 @@ pub fn undo_execution(result: &ExecutionResult) -> CnResult<u64> {
                 // File disappeared
                 continue;
             }
-            
+
             // Ensure original parent directory exists
             if let Some(parent) = file_res.source.parent() {
                 let _ = fs::create_dir_all(parent);
             }
-            
+
             // Move it back
             // Note: cross-filesystem undo is just a copy+delete since it's the reverse of cross-fs move
             // We use standard fs::rename here; if cross-fs, standard fs::rename might fail,

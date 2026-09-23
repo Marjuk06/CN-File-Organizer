@@ -13,7 +13,10 @@ pub async fn run(history: &HistoryStore, limit: usize, is_json: bool) -> anyhow:
         }
 
         println!("\nOperation History (Last {}):", entries.len());
-        println!("{:<36} | {:<20} | {:<15} | {:<10} | {:<12}", "ID", "Timestamp", "Mode", "Files", "Status");
+        println!(
+            "{:<36} | {:<20} | {:<15} | {:<10} | {:<12}",
+            "ID", "Timestamp", "Mode", "Files", "Status"
+        );
         println!("{:-<103}", "");
 
         for entry in entries {
@@ -27,14 +30,10 @@ pub async fn run(history: &HistoryStore, limit: usize, is_json: bool) -> anyhow:
 
             println!(
                 "{:<36} | {:<20} | {:<15} | {:<10} | {:<12}",
-                entry.id,
-                timestamp,
-                entry.mode,
-                entry.file_count,
-                status
+                entry.id, timestamp, entry.mode, entry.file_count, status
             );
         }
-        
+
         println!("\nRun `organize undo <ID>` to rollback an operation.");
     }
 

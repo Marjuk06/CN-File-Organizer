@@ -2,23 +2,17 @@ use crate::error::CnResult;
 use crate::models::file_info::FileKind;
 use crate::models::operation::{DateGranularity, FileOperation, OperationKind, SizeThresholds};
 use crate::models::scan_summary::ScanSummary;
-use std::path::PathBuf;
+use std::path::Path;
 use uuid::Uuid;
 
 /// Group files by their detected category.
-pub fn by_category(
-    summary: &ScanSummary,
-    destination_dir: &PathBuf,
-) -> CnResult<Vec<FileOperation>> {
+pub fn by_category(summary: &ScanSummary, destination_dir: &Path) -> CnResult<Vec<FileOperation>> {
     // Same as smart but without automatic multi-category optimization
     crate::planner::smart::build_operations(summary, destination_dir)
 }
 
 /// Group files by lowercase file extension.
-pub fn by_extension(
-    summary: &ScanSummary,
-    destination_dir: &PathBuf,
-) -> CnResult<Vec<FileOperation>> {
+pub fn by_extension(summary: &ScanSummary, destination_dir: &Path) -> CnResult<Vec<FileOperation>> {
     let mut ops = Vec::new();
 
     for file in &summary.files {
@@ -53,7 +47,7 @@ pub fn by_extension(
 /// Group files by modification date.
 pub fn by_date(
     summary: &ScanSummary,
-    destination_dir: &PathBuf,
+    destination_dir: &Path,
     granularity: DateGranularity,
 ) -> CnResult<Vec<FileOperation>> {
     let mut ops = Vec::new();
@@ -94,7 +88,7 @@ pub fn by_date(
 /// Group files by size range (Small / Medium / Large / Huge).
 pub fn by_size(
     summary: &ScanSummary,
-    destination_dir: &PathBuf,
+    destination_dir: &Path,
     thresholds: &SizeThresholds,
 ) -> CnResult<Vec<FileOperation>> {
     let mut ops = Vec::new();

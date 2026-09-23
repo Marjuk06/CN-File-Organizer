@@ -4,7 +4,7 @@ use crate::models::execution::{FileOutcome, FileResult};
 use crate::models::operation::{ConflictStrategy, FileOperation, OperationKind};
 use sha2::{Digest, Sha256};
 use std::fs;
-use std::io::{Read, Write};
+use std::io::Read;
 use std::path::Path;
 
 /// Execute a single file operation.
@@ -155,7 +155,9 @@ fn move_cross_fs(source: &Path, destination: &Path) -> CnResult<Option<String>> 
     // 4. Verify
     if source_hash != dest_hash {
         let _ = fs::remove_file(destination);
-        return Err(CnError::VerificationFailed(source.to_string_lossy().to_string()));
+        return Err(CnError::VerificationFailed(
+            source.to_string_lossy().to_string(),
+        ));
     }
 
     // 5. Delete source

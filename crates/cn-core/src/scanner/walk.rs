@@ -1,10 +1,10 @@
 use crate::error::CnResult;
 
+use crate::classifier;
 use crate::models::file_info::{FileInfo, FileKind};
 use crate::models::scan_summary::{CategoryStats, ScanOptions, ScanSummary};
-use crate::scanner::ScanProgressEvent;
 use crate::scanner::ProgressSender;
-use crate::classifier;
+use crate::scanner::ScanProgressEvent;
 use std::collections::HashMap;
 use std::path::Path;
 use uuid::Uuid;
@@ -103,11 +103,11 @@ pub async fn scan(
         let modified_at = meta
             .modified()
             .ok()
-            .map(|t| chrono::DateTime::<chrono::Utc>::from(t));
+            .map(chrono::DateTime::<chrono::Utc>::from);
         let created_at = meta
             .created()
             .ok()
-            .map(|t| chrono::DateTime::<chrono::Utc>::from(t));
+            .map(chrono::DateTime::<chrono::Utc>::from);
 
         let extension = path_buf
             .extension()
@@ -136,11 +136,10 @@ pub async fn scan(
         // Send progress event
         let count = files.len() as u64;
         if let Some(ref sender) = tx {
-            let _ = sender
-                .try_send(ScanProgressEvent::FileFound {
-                    count,
-                    path: path_buf.to_string_lossy().to_string(),
-                });
+            let _ = sender.try_send(ScanProgressEvent::FileFound {
+                count,
+                path: path_buf.to_string_lossy().to_string(),
+            });
         }
     }
 

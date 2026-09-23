@@ -108,9 +108,9 @@ pub struct SizeThresholds {
 impl Default for SizeThresholds {
     fn default() -> Self {
         SizeThresholds {
-            small: 1_048_576,        // 1 MB
-            medium: 104_857_600,     // 100 MB
-            large: 1_073_741_824,    // 1 GB
+            small: 1_048_576,     // 1 MB
+            medium: 104_857_600,  // 100 MB
+            large: 1_073_741_824, // 1 GB
         }
     }
 }
@@ -118,8 +118,10 @@ impl Default for SizeThresholds {
 /// How to handle a conflict (destination file already exists).
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
+#[derive(Default)]
 pub enum ConflictStrategy {
     /// Prompt the user for each conflict (GUI/interactive only).
+    #[default]
     Ask,
     /// Skip the file; leave destination unchanged.
     Skip,
@@ -127,12 +129,6 @@ pub enum ConflictStrategy {
     Replace,
     /// Rename the incoming file to avoid collision (e.g. photo(1).jpg).
     Rename,
-}
-
-impl Default for ConflictStrategy {
-    fn default() -> Self {
-        ConflictStrategy::Ask
-    }
 }
 
 /// The result of safety validation for a plan.

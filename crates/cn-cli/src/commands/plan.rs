@@ -1,9 +1,6 @@
 use cn_core::{
+    models::{operation::OrganizeMode, scan_summary::ScanOptions},
     planner::PlanOptions,
-    models::{
-        scan_summary::ScanOptions,
-        operation::OrganizeMode,
-    },
 };
 use std::path::PathBuf;
 
@@ -24,7 +21,7 @@ pub async fn run(
         _ => anyhow::bail!("Invalid organize mode. Use 'smart', 'extension', or 'category'."),
     };
 
-    let mut options = ScanOptions::default();
+    let options = ScanOptions::default();
     let summary = cn_core::scanner::scan_directory(&path, options, None).await?;
 
     if !is_json {
@@ -32,8 +29,10 @@ pub async fn run(
     }
 
     let dest = destination.unwrap_or_else(|| path.clone());
-    let mut plan_options = PlanOptions::default();
-    plan_options.destination = Some(dest);
+    let plan_options = PlanOptions {
+        destination: Some(dest),
+        ..Default::default()
+    };
     let plan = cn_core::planner::build_plan(&summary, mode, plan_options)?;
 
     if is_json {
@@ -45,17 +44,27 @@ pub async fn run(
         println!("Destination:  {}", plan.destination_dir.display());
         println!("Total Files:  {}", plan.total_files());
         println!("Total Size:   {} bytes", plan.estimated_bytes);
-        
-        let conflicts = plan.operations.iter().filter(|op| op.conflict.is_some()).count();
+
+        let conflicts = plan
+            .operations
+            .iter()
+            .filter(|op| op.conflict.is_some())
+            .count();
         println!("Conflicts:    {}", conflicts);
-        
+
         if conflicts == 0 {
             println!("\nThis plan is safe to execute.");
         } else {
-            println!("\nWARNING: There are {} conflicting files that will be skipped or renamed.", conflicts);
+            println!(
+                "\nWARNING: There are {} conflicting files that will be skipped or renamed.",
+                conflicts
+            );
         }
-        
-        println!("\nRun `organize execute {}` to apply these changes.", path.display());
+
+        println!(
+            "\nRun `organize execute {}` to apply these changes.",
+            path.display()
+        );
     }
 
     Ok(())

@@ -9,15 +9,12 @@ pub async fn create_plan(
     mode: OrganizeMode,
     destination: Option<String>,
 ) -> Result<OperationPlan, String> {
-    
     let mut opts = PlanOptions::default();
     if let Some(dest) = destination {
         opts.destination = Some(PathBuf::from(dest));
     }
-    
-    tokio::task::spawn_blocking(move || {
-        build_plan(&summary, mode, opts).map_err(|e| e.to_string())
-    })
-    .await
-    .map_err(|e| e.to_string())?
+
+    tokio::task::spawn_blocking(move || build_plan(&summary, mode, opts).map_err(|e| e.to_string()))
+        .await
+        .map_err(|e| e.to_string())?
 }

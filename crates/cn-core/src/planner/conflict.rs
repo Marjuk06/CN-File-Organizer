@@ -5,7 +5,7 @@ use std::collections::HashSet;
 use std::path::PathBuf;
 
 /// Detect conflicts in a list of operations.
-/// 
+///
 /// A conflict occurs when:
 /// 1. The destination file already exists on disk.
 /// 2. Multiple operations in the same plan target the same destination path.
@@ -19,7 +19,7 @@ pub fn detect_conflicts(mut operations: Vec<FileOperation>) -> CnResult<Vec<File
         if op.kind == OperationKind::Skip {
             continue;
         }
-        
+
         if !target_paths.insert(op.destination.clone()) {
             in_flight_duplicates.insert(op.destination.clone());
         }
@@ -33,7 +33,7 @@ pub fn detect_conflicts(mut operations: Vec<FileOperation>) -> CnResult<Vec<File
 
         // Check 1: In-flight duplicate (multiple sources mapped to same destination)
         if in_flight_duplicates.contains(&op.destination) {
-            // We treat this similar to an existing file conflict, using a dummy 
+            // We treat this similar to an existing file conflict, using a dummy
             // "existing" file representing the collision in the plan itself.
             // A more sophisticated implementation might handle this separately.
             op.conflict = Some(ConflictInfo {
@@ -58,9 +58,11 @@ pub fn detect_conflicts(mut operations: Vec<FileOperation>) -> CnResult<Vec<File
 
             let existing_size = meta.len();
             let existing_modified = meta.modified().ok().map(chrono::DateTime::from);
-            
+
             let incoming_meta = std::fs::metadata(&op.source).ok();
-            let incoming_modified = incoming_meta.and_then(|m| m.modified().ok()).map(chrono::DateTime::from);
+            let incoming_modified = incoming_meta
+                .and_then(|m| m.modified().ok())
+                .map(chrono::DateTime::from);
 
             op.conflict = Some(ConflictInfo {
                 existing_path: op.destination.clone(),

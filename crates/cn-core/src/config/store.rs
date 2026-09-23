@@ -42,7 +42,7 @@ impl ConfigStore {
 
         let content = fs::read_to_string(&path)?;
         let settings: Settings = toml::from_str(&content)?;
-        
+
         // Very basic schema version check
         let current_schema = Settings::default().schema_version;
         if settings.schema_version > current_schema {
@@ -51,7 +51,7 @@ impl ConfigStore {
                 supported: current_schema,
             });
         }
-        
+
         Ok(settings)
     }
 

@@ -2,14 +2,14 @@ use crate::error::CnResult;
 use crate::models::file_info::FileKind;
 use crate::models::operation::{FileOperation, OperationKind};
 use crate::models::scan_summary::ScanSummary;
-use std::path::PathBuf;
+use std::path::Path;
 use uuid::Uuid;
 
 /// Smart organize: group files by their detected category.
 /// This is the most user-friendly default mode.
 pub fn build_operations(
     summary: &ScanSummary,
-    destination_dir: &PathBuf,
+    destination_dir: &Path,
 ) -> CnResult<Vec<FileOperation>> {
     let mut ops = Vec::new();
 

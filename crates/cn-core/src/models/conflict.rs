@@ -35,10 +35,7 @@ impl ConflictInfo {
     /// Generate a renamed destination path that doesn't conflict.
     /// e.g. "photo.jpg" → "photo (1).jpg", "photo (1).jpg" → "photo (2).jpg"
     pub fn generate_rename(path: &std::path::Path) -> PathBuf {
-        let stem = path
-            .file_stem()
-            .and_then(|s| s.to_str())
-            .unwrap_or("file");
+        let stem = path.file_stem().and_then(|s| s.to_str()).unwrap_or("file");
         let ext = path.extension().and_then(|s| s.to_str());
         let parent = path.parent().unwrap_or(std::path::Path::new(""));
 

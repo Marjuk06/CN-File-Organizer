@@ -4,7 +4,7 @@ mod commands;
 use clap::Parser;
 use cn_core::{
     history::HistoryStore,
-    transaction::{TransactionJournal, RecoveryEngine},
+    transaction::{RecoveryEngine, TransactionJournal},
 };
 use dirs::data_local_dir;
 use std::path::PathBuf;
@@ -17,7 +17,10 @@ async fn main() -> anyhow::Result<()> {
     // Setup logging unless JSON output is requested
     if !cli.json {
         tracing_subscriber::fmt()
-            .with_env_filter(tracing_subscriber::EnvFilter::from_default_env().add_directive("cn_core=info".parse()?))
+            .with_env_filter(
+                tracing_subscriber::EnvFilter::from_default_env()
+                    .add_directive("cn_core=info".parse()?),
+            )
             .init();
     }
 
@@ -26,23 +29,29 @@ async fn main() -> anyhow::Result<()> {
     // Initialize core stores
     let history_store = HistoryStore::new(&app_dir);
     let journal = TransactionJournal::new(&app_dir);
-    
+
     // Check for incomplete operations
     let recovered = RecoveryEngine::recover(&journal)?;
-    if recovered > 0 {
-        if !cli.json {
-            println!("Recovered {} interrupted files.", recovered);
-        }
+    if recovered > 0 && !cli.json {
+        println!("Recovered {} interrupted files.", recovered);
     }
 
     match cli.command {
         Some(cli::Commands::Tui) => {
             commands::tui::run().await?;
         }
-        Some(cli::Commands::Scan { path, max_depth, include_hidden }) => {
+        Some(cli::Commands::Scan {
+            path,
+            max_depth,
+            include_hidden,
+        }) => {
             commands::scan::run(path, max_depth, include_hidden, cli.json).await?;
         }
-        Some(cli::Commands::Plan { path, mode, destination }) => {
+        Some(cli::Commands::Plan {
+            path,
+            mode,
+            destination,
+        }) => {
             commands::plan::run(path, mode, destination, cli.json).await?;
         }
         Some(cli::Commands::Execute { path, mode, yes }) => {

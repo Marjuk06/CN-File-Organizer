@@ -1,7 +1,6 @@
 use crate::error::CnResult;
 use crate::transaction::journal::{JournalEntry, TransactionJournal};
-use std::collections::{HashMap, HashSet};
-use uuid::Uuid;
+use std::collections::HashSet;
 
 /// Evaluates the journal to determine if recovery is needed and performs it.
 pub struct RecoveryEngine;
@@ -18,7 +17,7 @@ impl RecoveryEngine {
         // We only care about operations that started but didn't finish.
         let mut started = HashSet::new();
         let mut finished = HashSet::new();
-        
+
         // Track the last known state of each file move
         // Key: (operation_id, source, destination)
         let mut moving = HashSet::new();
@@ -29,13 +28,22 @@ impl RecoveryEngine {
                 JournalEntry::Start { operation_id, .. } => {
                     started.insert(operation_id);
                 }
-                JournalEntry::Success { operation_id } | JournalEntry::Failed { operation_id, .. } => {
+                JournalEntry::Success { operation_id }
+                | JournalEntry::Failed { operation_id, .. } => {
                     finished.insert(operation_id);
                 }
-                JournalEntry::FileMoving { operation_id, source, destination } => {
+                JournalEntry::FileMoving {
+                    operation_id,
+                    source,
+                    destination,
+                } => {
                     moving.insert((operation_id, source, destination));
                 }
-                JournalEntry::FileMoved { operation_id, source, destination } => {
+                JournalEntry::FileMoved {
+                    operation_id,
+                    source,
+                    destination,
+                } => {
                     moved.insert((operation_id, source, destination));
                 }
             }
@@ -52,7 +60,7 @@ impl RecoveryEngine {
                     // This file was interrupted mid-move.
                     // If it was a cross-filesystem copy, the destination might be partially written.
                     // The safest recovery is to delete the partially written destination if the source still exists.
-                    
+
                     if src.exists() && dst.exists() {
                         // The file didn't finish moving, so the source is our source of truth.
                         // We delete the partially copied destination.

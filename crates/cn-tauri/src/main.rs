@@ -4,9 +4,9 @@
 mod commands;
 mod state;
 
-use std::sync::Arc;
 use commands::{config::*, executor::*, history::*, planner::*, scanner::*};
 use state::AppState;
+use std::sync::Arc;
 use tauri::Manager;
 
 fn main() {
@@ -19,19 +19,23 @@ fn main() {
         .setup(|app| {
             // Initialize AppState
             let state = AppState::new(app.handle())
-                .map_err(|e| Box::new(std::io::Error::new(std::io::ErrorKind::Other, e)) as Box<dyn std::error::Error>)?;
-                
+                .map_err(|e| Box::new(std::io::Error::other(e)) as Box<dyn std::error::Error>)?;
+
             // Check for crash recovery
             let journal = cn_core::transaction::journal::TransactionJournal::new(&state.state_dir);
-            if let Ok(recovered) = cn_core::transaction::recovery::RecoveryEngine::recover(&journal) {
+            if let Ok(recovered) = cn_core::transaction::recovery::RecoveryEngine::recover(&journal)
+            {
                 if recovered > 0 {
-                    tracing::warn!("Recovered {} interrupted files from previous crash", recovered);
+                    tracing::warn!(
+                        "Recovered {} interrupted files from previous crash",
+                        recovered
+                    );
                 }
             }
-            
+
             app.manage(state);
             app.manage(Arc::new(ActiveOperations::default()));
-            
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

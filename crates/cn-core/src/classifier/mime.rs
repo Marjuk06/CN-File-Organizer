@@ -57,19 +57,17 @@ pub fn mime_to_category(mime: &str) -> Category {
         | "application/x-rpm" => Category::Archives,
 
         // Data
-        "application/json"
-        | "application/xml"
-        | "application/x-sqlite3" => Category::Data,
+        "application/json" | "application/xml" | "application/x-sqlite3" => Category::Data,
 
         // Applications (executables)
-        "application/x-executable"
-        | "application/x-elf"
-        | "application/x-sharedlib" => Category::Applications,
+        "application/x-executable" | "application/x-elf" | "application/x-sharedlib" => {
+            Category::Applications
+        }
 
         // Fonts
-        "application/font-sfnt"
-        | "application/font-woff"
-        | "application/font-woff2" => Category::Fonts,
+        "application/font-sfnt" | "application/font-woff" | "application/font-woff2" => {
+            Category::Fonts
+        }
 
         _ => Category::Other,
     }
@@ -118,6 +116,9 @@ mod tests {
 
     #[test]
     fn unknown_mime_maps_to_other() {
-        assert_eq!(mime_to_category("application/octet-stream"), Category::Other);
+        assert_eq!(
+            mime_to_category("application/octet-stream"),
+            Category::Other
+        );
     }
 }

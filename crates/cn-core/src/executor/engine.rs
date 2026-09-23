@@ -90,18 +90,25 @@ pub async fn execute_plan(
         file_results.push(result);
     }
 
-    if failed as usize == file_results.len() && !file_results.is_empty() && execution_status != ExecutionStatus::Cancelled {
+    if failed as usize == file_results.len()
+        && !file_results.is_empty()
+        && execution_status != ExecutionStatus::Cancelled
+    {
         execution_status = ExecutionStatus::Failed;
     }
 
     // Log completion
-    if execution_status == ExecutionStatus::Completed || execution_status == ExecutionStatus::PartialSuccess {
-        journal.append(&JournalEntry::Success { operation_id: plan.id })?;
+    if execution_status == ExecutionStatus::Completed
+        || execution_status == ExecutionStatus::PartialSuccess
+    {
+        journal.append(&JournalEntry::Success {
+            operation_id: plan.id,
+        })?;
         journal.clear()?; // Success means we don't need recovery data
     } else {
-        journal.append(&JournalEntry::Failed { 
-            operation_id: plan.id, 
-            reason: format!("{:?}", execution_status) 
+        journal.append(&JournalEntry::Failed {
+            operation_id: plan.id,
+            reason: format!("{:?}", execution_status),
         })?;
     }
 

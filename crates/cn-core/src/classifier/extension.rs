@@ -5,47 +5,45 @@ use crate::models::category::Category;
 pub fn category_for_extension(ext: &str) -> Option<Category> {
     match ext {
         // Documents
-        "pdf" | "doc" | "docx" | "odt" | "ods" | "odp" | "rtf" | "txt"
-        | "md" | "markdown" | "rst" | "tex" | "epub" | "mobi" | "azw"
-        | "xls" | "xlsx" | "csv" | "ppt" | "pptx" | "pages" | "numbers"
-        | "key" | "wpd" | "wps" | "dot" | "dotx" | "log" => Some(Category::Documents),
-
-        // Images
-        "jpg" | "jpeg" | "png" | "gif" | "bmp" | "tiff" | "tif" | "webp"
-        | "svg" | "ico" | "heic" | "heif" | "raw" | "cr2" | "nef" | "arw"
-        | "dng" | "orf" | "rw2" | "psd" | "xcf" | "ai" | "eps" | "avif" => {
-            Some(Category::Images)
+        "pdf" | "doc" | "docx" | "odt" | "ods" | "odp" | "rtf" | "txt" | "md" | "markdown"
+        | "rst" | "tex" | "epub" | "mobi" | "azw" | "xls" | "xlsx" | "csv" | "ppt" | "pptx"
+        | "pages" | "numbers" | "key" | "wpd" | "wps" | "dot" | "dotx" | "log" => {
+            Some(Category::Documents)
         }
 
+        // Images
+        "jpg" | "jpeg" | "png" | "gif" | "bmp" | "tiff" | "tif" | "webp" | "svg" | "ico"
+        | "heic" | "heif" | "raw" | "cr2" | "nef" | "arw" | "dng" | "orf" | "rw2" | "psd"
+        | "xcf" | "ai" | "eps" | "avif" => Some(Category::Images),
+
         // Videos
-        "mp4" | "mkv" | "avi" | "mov" | "wmv" | "flv" | "webm" | "m4v"
-        | "3gp" | "ogv" | "ts" | "mts" | "m2ts" | "vob" | "divx"
-        | "mpeg" | "mpg" | "rm" | "rmvb" | "f4v" => Some(Category::Videos),
+        "mp4" | "mkv" | "avi" | "mov" | "wmv" | "flv" | "webm" | "m4v" | "3gp" | "ogv" | "ts"
+        | "mts" | "m2ts" | "vob" | "divx" | "mpeg" | "mpg" | "rm" | "rmvb" | "f4v" => {
+            Some(Category::Videos)
+        }
 
         // Audio
-        "mp3" | "flac" | "ogg" | "wav" | "aac" | "m4a" | "wma" | "aiff"
-        | "aif" | "opus" | "mid" | "midi" | "ape" | "wv" | "mka"
-        | "au" | "ra" | "amr" => Some(Category::Audio),
+        "mp3" | "flac" | "ogg" | "wav" | "aac" | "m4a" | "wma" | "aiff" | "aif" | "opus"
+        | "mid" | "midi" | "ape" | "wv" | "mka" | "au" | "ra" | "amr" => Some(Category::Audio),
 
         // Archives
-        "zip" | "tar" | "gz" | "bz2" | "xz" | "7z" | "rar" | "tgz"
-        | "tbz2" | "txz" | "lz" | "lzma" | "zst" | "deb" | "rpm"
-        | "pkg" | "dmg" | "iso" | "img" | "cab" | "ace" | "arj" => Some(Category::Archives),
+        "zip" | "tar" | "gz" | "bz2" | "xz" | "7z" | "rar" | "tgz" | "tbz2" | "txz" | "lz"
+        | "lzma" | "zst" | "deb" | "rpm" | "pkg" | "dmg" | "iso" | "img" | "cab" | "ace"
+        | "arj" => Some(Category::Archives),
 
         // Code
-        "rs" | "py" | "js" | "jsx" | "tsx" | "html" | "htm"
-        | "css" | "scss" | "sass" | "less" | "java" | "kt" | "swift"
-        | "go" | "rb" | "php" | "c" | "cpp" | "cc" | "cxx" | "h" | "hpp"
-        | "cs" | "fs" | "lua" | "pl" | "pm" | "r" | "scala" | "clj"
-        | "ex" | "exs" | "sh" | "bash" | "zsh" | "fish" | "ps1"
-        | "bat" | "cmd" | "asm" | "s" | "vue" | "svelte" | "dart"
-        | "zig" | "nim" | "d" | "cr" | "ml" | "mli" | "lisp" | "scm" => Some(Category::Code),
+        "rs" | "py" | "js" | "jsx" | "tsx" | "html" | "htm" | "css" | "scss" | "sass" | "less"
+        | "java" | "kt" | "swift" | "go" | "rb" | "php" | "c" | "cpp" | "cc" | "cxx" | "h"
+        | "hpp" | "cs" | "fs" | "lua" | "pl" | "pm" | "r" | "scala" | "clj" | "ex" | "exs"
+        | "sh" | "bash" | "zsh" | "fish" | "ps1" | "bat" | "cmd" | "asm" | "s" | "vue"
+        | "svelte" | "dart" | "zig" | "nim" | "d" | "cr" | "ml" | "mli" | "lisp" | "scm" => {
+            Some(Category::Code)
+        }
 
         // Data
-        "json" | "xml" | "yaml" | "yml" | "toml" | "ini" | "cfg" | "conf"
-        | "db" | "sqlite" | "sqlite3" | "sql" | "mdb" | "accdb" | "dbf"
-        | "ndjson" | "jsonl" | "proto" | "avro" | "parquet" | "arrow"
-        | "geojson" | "kml" | "gpx" | "vcf" | "ics" => Some(Category::Data),
+        "json" | "xml" | "yaml" | "yml" | "toml" | "ini" | "cfg" | "conf" | "db" | "sqlite"
+        | "sqlite3" | "sql" | "mdb" | "accdb" | "dbf" | "ndjson" | "jsonl" | "proto" | "avro"
+        | "parquet" | "arrow" | "geojson" | "kml" | "gpx" | "vcf" | "ics" => Some(Category::Data),
 
         // Applications
         "appimage" | "run" | "out" => Some(Category::Applications),

@@ -20,7 +20,11 @@ impl HistoryStore {
     }
 
     /// Add a new execution result to the history log.
-    pub fn add_entry(&self, result: &ExecutionResult, plan: &crate::models::operation::OperationPlan) -> CnResult<()> {
+    pub fn add_entry(
+        &self,
+        result: &ExecutionResult,
+        plan: &crate::models::operation::OperationPlan,
+    ) -> CnResult<()> {
         if let Some(parent) = self.path.parent() {
             std::fs::create_dir_all(parent)?;
         }
@@ -35,7 +39,9 @@ impl HistoryStore {
             total_bytes: plan.estimated_bytes,
             status: match result.status {
                 crate::models::execution::ExecutionStatus::Completed => OperationStatus::Completed,
-                crate::models::execution::ExecutionStatus::PartialSuccess => OperationStatus::PartialSuccess,
+                crate::models::execution::ExecutionStatus::PartialSuccess => {
+                    OperationStatus::PartialSuccess
+                }
                 crate::models::execution::ExecutionStatus::Failed => OperationStatus::Failed,
                 crate::models::execution::ExecutionStatus::Cancelled => OperationStatus::Cancelled,
             },
@@ -49,7 +55,7 @@ impl HistoryStore {
 
         let json = serde_json::to_string(&entry)?;
         writeln!(f, "{}", json)?;
-        
+
         Ok(())
     }
 
@@ -72,9 +78,9 @@ impl HistoryStore {
                 entries.push(entry);
             }
         }
-        
+
         // Sort newest first
-        entries.sort_by(|a, b| b.timestamp.cmp(&a.timestamp));
+        entries.sort_by_key(|b| std::cmp::Reverse(b.timestamp));
 
         Ok(entries)
     }
@@ -83,7 +89,7 @@ impl HistoryStore {
     pub fn mark_undone(&self, id: Uuid) -> CnResult<()> {
         let mut entries = self.get_history()?;
         let mut found = false;
-        
+
         for entry in &mut entries {
             if entry.id == id {
                 entry.undone_at = Some(chrono::Utc::now());
@@ -92,29 +98,29 @@ impl HistoryStore {
                 break;
             }
         }
-        
+
         if !found {
             return Err(CnError::OperationNotFound(id.to_string()));
         }
-        
+
         // Re-write the whole file (history is kept small enough to allow this)
         // Sort oldest first for chronological append
-        entries.sort_by(|a, b| a.timestamp.cmp(&b.timestamp));
-        
+        entries.sort_by_key(|a| a.timestamp);
+
         let mut f = OpenOptions::new()
             .create(true)
             .write(true)
             .truncate(true)
             .open(&self.path)?;
-            
+
         for entry in entries {
             let json = serde_json::to_string(&entry)?;
             writeln!(f, "{}", json)?;
         }
-        
+
         Ok(())
     }
-    
+
     /// Clear all history
     pub fn clear(&self) -> CnResult<()> {
         if self.path.exists() {

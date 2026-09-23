@@ -1,7 +1,7 @@
-pub mod smart;
-pub mod modes;
 pub mod conflict;
+pub mod modes;
 pub mod preview;
+pub mod smart;
 pub mod validation;
 
 use crate::error::CnResult;
@@ -38,10 +38,8 @@ pub fn build_plan(
         .unwrap_or_else(|| summary.source_dir.clone());
 
     // Detect cross-filesystem
-    let cross_filesystem = crate::safety::boundaries::same_filesystem(
-        &summary.source_dir,
-        &destination_dir,
-    ) == false;
+    let cross_filesystem =
+        !crate::safety::boundaries::same_filesystem(&summary.source_dir, &destination_dir);
 
     // Build file operations based on mode
     let operations = match &mode {

@@ -1,6 +1,6 @@
-pub mod mime;
 pub mod category;
 pub mod extension;
+pub mod mime;
 
 use crate::models::category::Category;
 use std::path::Path;

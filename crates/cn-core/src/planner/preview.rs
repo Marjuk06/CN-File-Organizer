@@ -1,6 +1,6 @@
 use crate::models::operation::{FileOperation, OperationKind};
 use std::collections::BTreeMap;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 /// Builds a text-based tree preview of the intended operations.
 /// Helpful for CLI interfaces to show users what will happen.
@@ -22,7 +22,7 @@ pub fn build_tree_preview(
             .unwrap_or_else(|| Path::new(""))
             .to_string_lossy()
             .to_string();
-            
+
         let file_name = op
             .destination
             .file_name()
@@ -40,7 +40,7 @@ pub fn build_tree_preview(
             output.push_str(&format!("  ├── 📄 {}\n", file));
         }
     }
-    
+
     if output.is_empty() {
         output.push_str("No files to organize.\n");
     }

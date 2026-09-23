@@ -121,6 +121,9 @@ mod tests {
     #[test]
     fn non_custom_path_not_protected() {
         let custom = vec!["/home/user/important".to_string()];
-        assert!(!is_custom_protected(Path::new("/home/user/Downloads"), &custom));
+        assert!(!is_custom_protected(
+            Path::new("/home/user/Downloads"),
+            &custom
+        ));
     }
 }

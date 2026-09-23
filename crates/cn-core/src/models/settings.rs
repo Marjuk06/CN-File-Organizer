@@ -65,20 +65,11 @@ impl Default for ConflictSettings {
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SafetySettings {
     pub follow_symlinks: bool,
     /// Additional user-defined protected paths.
     pub custom_protected_paths: Vec<String>,
-}
-
-impl Default for SafetySettings {
-    fn default() -> Self {
-        SafetySettings {
-            follow_symlinks: false,
-            custom_protected_paths: Vec::new(),
-        }
-    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

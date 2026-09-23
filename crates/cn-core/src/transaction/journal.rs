@@ -10,7 +10,10 @@ use uuid::Uuid;
 #[serde(tag = "type")]
 pub enum JournalEntry {
     /// Operation plan is starting.
-    Start { operation_id: Uuid, plan_path: PathBuf },
+    Start {
+        operation_id: Uuid,
+        plan_path: PathBuf,
+    },
     /// A single file move has begun (but not yet finished).
     FileMoving {
         operation_id: Uuid,

@@ -1,10 +1,7 @@
 use cn_core::{
     history::HistoryStore,
+    models::{execution::ExecutionResult, history::OperationStatus},
     undo::undo_execution,
-    models::{
-        execution::ExecutionResult,
-        history::OperationStatus,
-    },
 };
 use std::path::Path;
 use uuid::Uuid;
@@ -30,10 +27,13 @@ pub async fn run(
             match found {
                 Some(id) => {
                     if !is_json {
-                        println!("No operation ID provided, defaulting to last operation: {}", id);
+                        println!(
+                            "No operation ID provided, defaulting to last operation: {}",
+                            id
+                        );
                     }
                     id
-                },
+                }
                 None => {
                     anyhow::bail!("No eligible recent operations found to undo.");
                 }
@@ -56,12 +56,15 @@ pub async fn run(
     }
 
     let files_restored = undo_execution(&execution_result)?;
-    
+
     // Mark as undone in history
     let _ = history.mark_undone(id_to_undo);
 
     if is_json {
-        println!(r#"{{"status": "Success", "files_restored": {}}}"#, files_restored);
+        println!(
+            r#"{{"status": "Success", "files_restored": {}}}"#,
+            files_restored
+        );
     } else {
         println!("Successfully restored {} files.", files_restored);
     }

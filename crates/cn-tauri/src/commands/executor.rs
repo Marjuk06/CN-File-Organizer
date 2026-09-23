@@ -43,7 +43,7 @@ pub async fn execute_plan_command(
     let history_store = &state.history_store;
 
     let cancel_token = CancellationToken::new();
-    
+
     // Register token
     {
         let mut tokens = active_ops.tokens.lock().await;
@@ -58,7 +58,11 @@ pub async fn execute_plan_command(
         while let Some(event) = progress_rx.recv().await {
             use cn_core::executor::ExecuteProgressEvent::*;
             let payload = match event {
-                Started { operation_id, source, destination } => ProgressPayload {
+                Started {
+                    operation_id,
+                    source,
+                    destination,
+                } => ProgressPayload {
                     event_type: "started".into(),
                     operation_id: Some(operation_id),
                     source: Some(source),
@@ -67,7 +71,11 @@ pub async fn execute_plan_command(
                     bytes_processed: None,
                     error: None,
                 },
-                Finished { operation_id, outcome, bytes_processed } => ProgressPayload {
+                Finished {
+                    operation_id,
+                    outcome,
+                    bytes_processed,
+                } => ProgressPayload {
                     event_type: "finished".into(),
                     operation_id: Some(operation_id),
                     source: None,
@@ -95,7 +103,7 @@ pub async fn execute_plan_command(
                     error: Some(e),
                 },
             };
-            
+
             let _ = app_clone.emit("execute-progress", payload);
         }
     });
@@ -111,7 +119,7 @@ pub async fn execute_plan_command(
     }
 
     let result = res.map_err(|e| e.to_string())?;
-    
+
     // Save to history
     if let Err(e) = history_store.add_entry(&result, &plan_clone) {
         tracing::error!("Failed to save history: {}", e);

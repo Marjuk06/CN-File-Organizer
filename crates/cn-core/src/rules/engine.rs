@@ -1,8 +1,7 @@
-use crate::error::CnResult;
 use crate::models::file_info::FileInfo;
 use crate::models::operation::{FileOperation, OperationKind};
 use crate::models::rule::{ConditionMode, Rule, RuleAction, RuleCondition};
-use std::path::PathBuf;
+use std::path::Path;
 use uuid::Uuid;
 
 pub struct RuleEngine {
@@ -12,11 +11,11 @@ pub struct RuleEngine {
 impl RuleEngine {
     pub fn new(mut rules: Vec<Rule>) -> Self {
         // Sort by priority (lowest first)
-        rules.sort_by(|a, b| a.priority.cmp(&b.priority));
+        rules.sort_by_key(|a| a.priority);
         Self { rules }
     }
 
-    pub fn evaluate(&self, file: &FileInfo, destination_dir: &PathBuf) -> Option<FileOperation> {
+    pub fn evaluate(&self, file: &FileInfo, destination_dir: &Path) -> Option<FileOperation> {
         for rule in &self.rules {
             if !rule.enabled {
                 continue;
@@ -34,8 +33,12 @@ impl RuleEngine {
                 };
 
                 let destination = match &rule.action {
-                    RuleAction::Skip => destination_dir.join(file.path.file_name().unwrap_or_default()),
-                    RuleAction::MoveToSubfolder { folder } => destination_dir.join(folder).join(file.path.file_name().unwrap_or_default()),
+                    RuleAction::Skip => {
+                        destination_dir.join(file.path.file_name().unwrap_or_default())
+                    }
+                    RuleAction::MoveToSubfolder { folder } => destination_dir
+                        .join(folder)
+                        .join(file.path.file_name().unwrap_or_default()),
                 };
 
                 return Some(FileOperation {
@@ -43,13 +46,13 @@ impl RuleEngine {
                     source: file.path.clone(),
                     destination,
                     kind,
-                    category: file.category.clone(),
+                    category: file.category,
                     size: file.size,
                     conflict: None,
                 });
             }
         }
-        
+
         // No rules matched
         None
     }

@@ -1,6 +1,6 @@
-use std::path::PathBuf;
 use cn_core::config::ConfigStore;
 use cn_core::history::HistoryStore;
+use std::path::PathBuf;
 use tauri::{AppHandle, Manager};
 
 pub struct AppState {
@@ -12,11 +12,11 @@ pub struct AppState {
 impl AppState {
     pub fn new(app: &AppHandle) -> Result<Self, String> {
         let path_resolver = app.path();
-        
+
         let config_dir = path_resolver
             .app_config_dir()
             .map_err(|_| "Could not determine config directory".to_string())?;
-            
+
         let state_dir = path_resolver
             .app_local_data_dir()
             .map_err(|_| "Could not determine state directory".to_string())?;

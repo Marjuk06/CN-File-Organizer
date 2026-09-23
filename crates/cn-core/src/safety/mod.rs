@@ -1,6 +1,6 @@
-pub mod protected;
 pub mod boundaries;
 pub mod permissions;
+pub mod protected;
 
 use crate::error::{CnError, CnResult};
 use crate::models::operation::OperationPlan;

@@ -5,14 +5,13 @@ use std::path::Path;
 pub fn check_writable(path: &Path) -> CnResult<()> {
     // If the path exists, check write permission on it
     if path.exists() {
-        let meta = std::fs::metadata(path).map_err(|e| {
-            CnError::PermissionDenied(format!("{}: {}", path.display(), e))
-        })?;
+        let meta = std::fs::metadata(path)
+            .map_err(|e| CnError::PermissionDenied(format!("{}: {}", path.display(), e)))?;
 
         // Use std::fs::OpenOptions to test writability on Linux
         #[cfg(unix)]
         {
-            use std::os::unix::fs::MetadataExt;
+
             // Check if we own it or have write permission via groups
             // Simple check: try to create a temp file in the directory
         }

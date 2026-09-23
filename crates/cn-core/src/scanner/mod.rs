@@ -1,12 +1,11 @@
-pub mod walk;
 pub mod metadata;
 pub mod symlink;
+pub mod walk;
 
 use crate::error::CnResult;
 use crate::models::scan_summary::{ScanOptions, ScanSummary};
 use std::path::Path;
 use tokio::sync::mpsc;
-use uuid::Uuid;
 
 /// Progress events emitted during a directory scan.
 #[derive(Debug, Clone)]

@@ -2,5 +2,5 @@ pub mod journal;
 pub mod recovery;
 
 // Re-exports
-pub use journal::{TransactionJournal, JournalEntry};
+pub use journal::{JournalEntry, TransactionJournal};
 pub use recovery::RecoveryEngine;

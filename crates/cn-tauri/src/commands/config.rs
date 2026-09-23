@@ -15,11 +15,9 @@ pub async fn get_settings(state: State<'_, AppState>) -> Result<Settings, String
 #[tauri::command(async)]
 pub async fn save_settings(state: State<'_, AppState>, settings: Settings) -> Result<(), String> {
     let store = state.config_store.clone();
-    tokio::task::spawn_blocking(move || {
-        store.save_settings(&settings).map_err(|e| e.to_string())
-    })
-    .await
-    .map_err(|e| e.to_string())?
+    tokio::task::spawn_blocking(move || store.save_settings(&settings).map_err(|e| e.to_string()))
+        .await
+        .map_err(|e| e.to_string())?
 }
 
 #[tauri::command(async)]
@@ -38,13 +36,11 @@ pub async fn save_rules(state: State<'_, AppState>, rules: Vec<Rule>) -> Result<
             return Err(e.to_string());
         }
     }
-    
+
     let store = state.config_store.clone();
-    tokio::task::spawn_blocking(move || {
-        store.save_rules(&rules).map_err(|e| e.to_string())
-    })
-    .await
-    .map_err(|e| e.to_string())?
+    tokio::task::spawn_blocking(move || store.save_rules(&rules).map_err(|e| e.to_string()))
+        .await
+        .map_err(|e| e.to_string())?
 }
 
 #[tauri::command(async)]

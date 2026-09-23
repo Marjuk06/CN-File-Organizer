@@ -40,7 +40,7 @@ pub struct CategoryStats {
 }
 
 /// Options controlling scan behavior.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ScanOptions {
     /// Include hidden files (those starting with '.').
     /// Default: false.
@@ -52,17 +52,6 @@ pub struct ScanOptions {
     pub max_depth: Option<usize>,
     /// Glob patterns for paths to exclude.
     pub exclude_patterns: Vec<String>,
-}
-
-impl Default for ScanOptions {
-    fn default() -> Self {
-        ScanOptions {
-            include_hidden: false,
-            follow_symlinks: false,
-            max_depth: None,
-            exclude_patterns: Vec::new(),
-        }
-    }
 }
 
 impl ScanSummary {
